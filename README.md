@@ -2,9 +2,9 @@
 
 Projeto de estudo pela empresa Capgemini
 
+----------------------------------
+Apenas salvando os comandos
 
-
----------------------------------- Apenas salvando os comandos
 echo "# todoApp" >> README.md
 git init
 git add README.md
