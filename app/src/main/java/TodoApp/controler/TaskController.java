@@ -34,7 +34,7 @@ public class TaskController {
         } catch (Exception e) {
             throw new RuntimeException("Error ao salvar a tarefa " + e.getMessage(), e);
         } finally {
-            ConnectionFactory.closeConnection(cn);
+            ConnectionFactory.closeConnection(cn, pt);
         }
         
     }
@@ -46,18 +46,18 @@ public class TaskController {
     public void deleteById(int id) throws SQLException {
         
         String sql = "DELETE FROM tasks WHERE id = ?";
-        Connection conn = null;
-        PreparedStatement statement = null;
+        Connection cn = null;
+        PreparedStatement pt = null;
         
         try {
-            conn = ConnectionFactory.getConnection();
-            statement = conn.prepareStatement(sql);
-            statement.setInt(1, id);
-            statement.execute();
+            cn = ConnectionFactory.getConnection();
+            pt = cn.prepareStatement(sql);
+            pt.setInt(1, id);
+            pt.execute();
         } catch (SQLException e) {
             throw new SQLException("Error ao deletar a task do ID " + id);
         } finally {
-            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeConnection(cn, pt);
         }
     } 
     

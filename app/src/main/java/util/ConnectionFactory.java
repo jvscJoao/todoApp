@@ -3,6 +3,7 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class ConnectionFactory {
     
@@ -29,7 +30,20 @@ public class ConnectionFactory {
             }
         } catch (Exception e) {
             throw new RuntimeException("Erro ao fecar a conexão com o banco.");
-        }
-        
+        }  
+    }
+    
+       public static void closeConnection(Connection connection, PreparedStatement preparedStatement) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+            
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao fecar a conexão com o banco.");
+        }  
     }
 }
