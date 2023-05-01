@@ -22,7 +22,7 @@ public class TaskController {
         try {
             cn = ConnectionFactory.getConnection();
             pt = cn.prepareStatement(sql);
-            pt.setInt(1, task.getId());
+            pt.setInt(1, task.getIdProject());
             pt.setString(2, task.getName());
             pt.setString(3, task.getDescription());
             pt.setBoolean(4, task.isIsCompleted());
@@ -39,11 +39,32 @@ public class TaskController {
         
     }
     
-    public void alter(Task task) {
+    public void alter(Task task) throws SQLException {
+        String sql = "UPDATE tasks SET idProject = ?, name = ?, description = ?, notes = ?, completed = ?, deadline = ?, createdAt = ?, updatedAt = ? WHERE id = ?";
         
+        Connection cn = null;
+        PreparedStatement pt = null;
+        
+        try {
+            cn = ConnectionFactory.getConnection();
+            pt = cn.prepareStatement(sql);
+            pt.setInt(1, task.getIdProject());
+            pt.setString(2, task.getName());
+            pt.setString(3, task.getDescription());
+            pt.setString(4, task.getNotes());
+            pt.setBoolean(5, task.isIsCompleted());
+            pt.setDate(6, new Date(task.getDeadline().getTime()));
+            pt.setDate(7, new Date(task.getCreatedAt().getTime()));
+            pt.setDate(7, new Date(task.getUpdatedAt().getTime()));
+            pt.setInt(9, task.getId());
+        } catch (SQLException e) {
+            throw new SQLException("Aconteceu um error ao atualizar os dados da tarefa", e);
+        } finally {
+            
+        }
     }
     
-    public void deleteById(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         
         String sql = "DELETE FROM tasks WHERE id = ?";
         Connection cn = null;
