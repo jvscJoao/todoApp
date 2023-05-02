@@ -5,7 +5,9 @@ import TodoApp.model.Task;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import util.ConnectionFactory;
 
@@ -82,10 +84,41 @@ public class TaskController {
         }
     } 
     
-    public List<Task> select(int id) {
+    public List<Task> select(int id) throws SQLException{
         
-        return null;
+        String sql = "SELECT * FROM tasks where idProject = ?";
         
+        Connection cn = null;
+        PreparedStatement pt = null;
+        ResultSet rs = null;
+        List<Task> tasks = new ArrayList<Task>();
+        
+        try {
+            cn = ConnectionFactory.getConnection();
+            pt = cn.prepareStatement(sql);
+            pt.setInt(1, id);
+            //Retorna uma tabela vinda do DB.
+            rs = pt.executeQuery();
+            
+            while(rs.next()) {
+                Task task = new Task();
+                task.setId(rs.getInt("id"));
+                task.setIdProject(rs.getInt("idProject"));
+                task.setName(rs.getString("name"));
+                task.setDescription(rs.getString("description"));
+                task.setNotes(rs.getString("notes"));
+                task.setIsCompleted(rs.getBoolean("completed"));
+                task.setDeadline(rs.getDate("deadline"));
+                task.setCreatedAt(rs.getDate("createdAt"));
+                task.setUpdatedAt(rs.getDate("updatedAt"));
+                tasks.add(task);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error ao lista as tarefas", e);
+        } finally {
+            ConnectionFactory.closeConnection(cn, pt, rs);
+        }
+        return tasks;
     }
     
 }

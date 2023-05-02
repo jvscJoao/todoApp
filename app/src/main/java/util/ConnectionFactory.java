@@ -4,6 +4,7 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ConnectionFactory {
     
@@ -33,7 +34,7 @@ public class ConnectionFactory {
         }  
     }
     
-       public static void closeConnection(Connection connection, PreparedStatement preparedStatement) {
+    public static void closeConnection(Connection connection, PreparedStatement preparedStatement) {
         try {
             if (connection != null) {
                 connection.close();
@@ -41,6 +42,24 @@ public class ConnectionFactory {
             
             if (preparedStatement != null) {
                 preparedStatement.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao fecar a conexão com o banco.");
+        }  
+    }
+    
+        public static void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+            
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            
+            if (resultSet != null) {
+                resultSet.close();
             }
         } catch (Exception e) {
             throw new RuntimeException("Erro ao fecar a conexão com o banco.");
