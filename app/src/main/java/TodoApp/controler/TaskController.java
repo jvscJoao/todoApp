@@ -59,6 +59,7 @@ public class TaskController {
             pt.setDate(7, new Date(task.getCreatedAt().getTime()));
             pt.setDate(7, new Date(task.getUpdatedAt().getTime()));
             pt.setInt(9, task.getId());
+            pt.execute();
         } catch (SQLException e) {
             throw new SQLException("Aconteceu um error ao atualizar os dados da tarefa", e);
         } finally {

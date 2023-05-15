@@ -13,7 +13,7 @@ import util.ConnectionFactory;
 
 public class ProjectController {
     
-    public void insert(Project project) throws SQLException {
+    public void insert(Project project) {
         
         String sql = "INSERT INTO projects (name, description, createdAt, updatedAT) VALUES (?, ?, ?, ?);";
         Connection cn = null;
@@ -26,14 +26,15 @@ public class ProjectController {
             ps.setString(2, project.getDescription());
             ps.setDate(3, new Date(project.getCreatedAt().getTime()));
             ps.setDate(4, new Date(project.getUpdatedAt().getTime()));
-        } catch (SQLException e) {
-            throw new SQLException("Error ao inserir o projeto", e);
+            ps.execute();
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao inserir o projeto", e);
         } finally {
             ConnectionFactory.closeConnection(cn, ps);
         }
     }
     
-    public void alter(Project project) throws SQLException {
+    public void alter(Project project) {
         
         String sql = "UPDATE projects SET name = ?, description = ?, createdAt = ?, updatedAt = ? WHERE id = ?";
         
@@ -48,15 +49,15 @@ public class ProjectController {
             ps.setDate(3, new Date(project.getCreatedAt().getTime()));
             ps.setDate(4, new Date(project.getUpdatedAt().getTime()));
             ps.setInt(5, project.getId());
-        } catch (SQLException e) {
-            throw new SQLException("Error ao alterar o projeto!", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao alterar o projeto!", e);
         } finally {
             ConnectionFactory.closeConnection(cn, ps);
         }
         
     }
     
-    public void delete(int id) throws SQLException {
+    public void delete(int id) {
         
         String sql = "DELETE FROM projects WHERE id = ?";
         Connection cn = null;
@@ -65,15 +66,15 @@ public class ProjectController {
             cn = ConnectionFactory.getConnection();
             ps = cn.prepareStatement(sql);
             ps.setInt(1, id);
-        } catch (SQLException e) {
-            throw new SQLException("Error ao delatar o projeto", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao delatar o projeto", e);
         } finally {
             ConnectionFactory.closeConnection(cn, ps);
         }
         
     }
     
-    public List<Project> select() throws SQLException {
+    public List<Project> select() {
         String sql = "SELECT * FROM projects";
         Connection cn = null;
         PreparedStatement ps = null;
@@ -95,15 +96,15 @@ public class ProjectController {
                 p.setUpdatedAt(rs.getDate("updatedAt"));
                 project.add(p);
             }
-        } catch (SQLException e) {
-            throw new SQLException("Error ao listar os projetos", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao listar os projetos", e);
         } finally {
             ConnectionFactory.closeConnection(cn, ps, rs);
         }
         return project;   
     }
     
-    public Project selectById(int id) throws SQLException {
+    public Project selectById(int id){
         String sql = "SELECT * FROM projects WHERE id = ?";
         Connection cn = null;
         PreparedStatement ps = null;
@@ -122,8 +123,8 @@ public class ProjectController {
                 p.setCreatedAt(rs.getTimestamp("createdAt"));
                 p.setUpdatedAt(rs.getTimestamp("updatedAt"));
             }
-        } catch (SQLException e) {
-            throw new SQLException("Error ao achar projeto com id " + id, e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao achar projeto com id " + id, e);
         } finally {
             ConnectionFactory.closeConnection(cn, ps, rs);
         }
