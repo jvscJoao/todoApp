@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import util.ConnectionFactory;
@@ -15,7 +14,7 @@ public class ProjectController {
     
     public void insert(Project project) {
         
-        String sql = "INSERT INTO projects (name, description, createdAt, updatedAT) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO projects(name, description, createdAt, updatedAT) VALUES (?, ?, ?, ?)";
         Connection cn = null;
         PreparedStatement ps = null;
         

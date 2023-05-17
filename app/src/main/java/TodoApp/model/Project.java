@@ -20,7 +20,8 @@ public class Project {
     }
     
     public Project() {
-        
+       this.createdAt = new Date();
+       this.updatedAt = new Date();
     }
 
     public int getId() {

@@ -3,7 +3,10 @@
  */
 package TodoApp;
 
+import TodoApp.controler.ProjectController;
+import TodoApp.model.Project;
 import java.sql.Connection;
+import java.sql.Date;
 import util.ConnectionFactory;
 
 public class App {
