@@ -14,9 +14,9 @@ import util.ConnectionFactory;
 
 public class TaskController {
     
-    public void insert(Task task) throws SQLException {
+    public void insert(Task task) {
         
-        String sql = "INSERT INTO tasks (idProject, name, description, completed, notes, deadline, createdAt, updateAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tasks (idProject, name, description, completed, notes, deadline, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         Connection cn = null;
         PreparedStatement pt = null;
@@ -27,7 +27,7 @@ public class TaskController {
             pt.setInt(1, task.getIdProject());
             pt.setString(2, task.getName());
             pt.setString(3, task.getDescription());
-            pt.setBoolean(4, task.isIsCompleted());
+            pt.setBoolean(4, task.isCompleted());
             pt.setString(5, task.getNotes());
             pt.setDate(6, new Date(task.getDeadline().getTime()));
             pt.setDate(7, new Date(task.getCreatedAt().getTime()));
@@ -54,7 +54,7 @@ public class TaskController {
             pt.setString(2, task.getName());
             pt.setString(3, task.getDescription());
             pt.setString(4, task.getNotes());
-            pt.setBoolean(5, task.isIsCompleted());
+            pt.setBoolean(5, task.isCompleted());
             pt.setDate(6, new Date(task.getDeadline().getTime()));
             pt.setDate(7, new Date(task.getCreatedAt().getTime()));
             pt.setDate(7, new Date(task.getUpdatedAt().getTime()));

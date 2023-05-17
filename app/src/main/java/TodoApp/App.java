@@ -4,9 +4,12 @@
 package TodoApp;
 
 import TodoApp.controler.ProjectController;
+import TodoApp.controler.TaskController;
 import TodoApp.model.Project;
+import TodoApp.model.Task;
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import util.ConnectionFactory;
 
 public class App {
@@ -15,6 +18,15 @@ public class App {
     }
 
     public static void main(String[] args) {
+        Task task = new Task();
+        TaskController taskController = new TaskController();
+        task.setIdProject(1);
+        task.setName("Ronaldo");
+        task.setDescription("Merda de Script");
+        task.setNotes("Lixo de Notes");
+        task.setDeadline(new Date(task.getCreatedAt().getTime()));
+        
+        
 
     }
 }
