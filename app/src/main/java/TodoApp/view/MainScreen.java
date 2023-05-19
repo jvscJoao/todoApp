@@ -7,10 +7,13 @@ package TodoApp.view;
 import TodoApp.controler.ProjectController;
 import TodoApp.controler.TaskController;
 import TodoApp.model.Project;
+import TodoApp.model.Task;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import util.TaskTableModel;
 
 /**
  *
@@ -21,7 +24,8 @@ public class MainScreen extends javax.swing.JFrame {
 
     ProjectController projectController;
     TaskController taskController;
-    DefaultListModel projectModel;
+    DefaultListModel projectsModel;
+    TaskTableModel taskModel;
     
     public MainScreen() {
         initComponents();
@@ -50,7 +54,7 @@ public class MainScreen extends javax.swing.JFrame {
         jScrollPaneProjects = new javax.swing.JScrollPane();
         jListProjects = new javax.swing.JList<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTasks = new javax.swing.JTable();
 
         EmptyList.setBackground(java.awt.Color.darkGray);
         EmptyList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -226,7 +230,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -252,10 +256,11 @@ public class MainScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(50);
-        jTable1.setSelectionBackground(new java.awt.Color(204, 255, 204));
-        jTable1.setShowHorizontalLines(true);
-        jScrollPane1.setViewportView(jTable1);
+        jTableTasks.setRowHeight(50);
+        jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTasks.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -357,7 +362,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTooBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneProjects;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTasks;
     private javax.swing.JLabel projectsIcon;
     private javax.swing.JLabel projectsTitle;
     private javax.swing.JLabel tasksIcon;
@@ -371,18 +376,27 @@ public class MainScreen extends javax.swing.JFrame {
     }
     
     public void initComponentsModel() {
-        projectModel = new DefaultListModel();
+        projectsModel = new DefaultListModel();
         loadProjects();
+        
+        taskModel = new TaskTableModel();
+        jTableTasks.setModel(taskModel);
+        loadTasks(1);
+    }
+    
+    public void loadTasks(int id) {
+        List<Task> tasks = taskController.select(id);
+        taskModel.setTasks(tasks);
     }
     
     public void  loadProjects() {
         List<Project> projects = projectController.select();
         
-        projectModel.clear();
+        projectsModel.clear();
         
         projects.stream()
-            .forEach(project -> projectModel.addElement(project));
-        jListProjects.setModel(projectModel);
+            .forEach(project -> projectsModel.addElement(project));
+        jListProjects.setModel(projectsModel);
     }
     
 }

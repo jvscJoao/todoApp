@@ -85,7 +85,7 @@ public class TaskController {
         }
     } 
     
-    public List<Task> select(int id) throws SQLException{
+    public List<Task> select(int id) {
         
         String sql = "SELECT * FROM tasks where idProject = ?";
         
@@ -114,8 +114,8 @@ public class TaskController {
                 task.setUpdatedAt(rs.getDate("updatedAt"));
                 tasks.add(task);
             }
-        } catch (SQLException e) {
-            throw new SQLException("Error ao lista as tarefas", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao lista as tarefas", e);
         } finally {
             ConnectionFactory.closeConnection(cn, pt, rs);
         }
