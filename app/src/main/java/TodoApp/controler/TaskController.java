@@ -41,7 +41,7 @@ public class TaskController {
         
     }
     
-    public void alter(Task task) throws SQLException {
+    public void alter(Task task) {
         String sql = "UPDATE tasks SET idProject = ?, name = ?, description = ?, notes = ?, completed = ?, deadline = ?, createdAt = ?, updatedAt = ? WHERE id = ?";
         
         Connection cn = null;
@@ -57,17 +57,17 @@ public class TaskController {
             pt.setBoolean(5, task.isCompleted());
             pt.setDate(6, new Date(task.getDeadline().getTime()));
             pt.setDate(7, new Date(task.getCreatedAt().getTime()));
-            pt.setDate(7, new Date(task.getUpdatedAt().getTime()));
+            pt.setDate(8, new Date(task.getUpdatedAt().getTime()));
             pt.setInt(9, task.getId());
             pt.execute();
-        } catch (SQLException e) {
-            throw new SQLException("Aconteceu um error ao atualizar os dados da tarefa", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Aconteceu um error ao atualizar os dados da tarefa", e);
         } finally {
             
         }
     }
     
-    public void delete(int id) throws SQLException {
+    public void delete(int id) {
         
         String sql = "DELETE FROM tasks WHERE id = ?";
         Connection cn = null;
@@ -78,8 +78,8 @@ public class TaskController {
             pt = cn.prepareStatement(sql);
             pt.setInt(1, id);
             pt.execute();
-        } catch (SQLException e) {
-            throw new SQLException("Error ao deletar a task do ID " + id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error ao deletar a task do ID " + id);
         } finally {
             ConnectionFactory.closeConnection(cn, pt);
         }
