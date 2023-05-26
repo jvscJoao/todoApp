@@ -51,11 +51,16 @@ public class MainScreen extends javax.swing.JFrame {
         jPanelProjectList = new javax.swing.JPanel();
         jScrollPaneProjects = new javax.swing.JScrollPane();
         jListProjects = new javax.swing.JList<>();
+<<<<<<< HEAD
         jPanel7 = new javax.swing.JPanel();
         jPanelEmptyList = new javax.swing.JPanel();
         emptyListIcon = new javax.swing.JLabel();
         emptyListTItle = new javax.swing.JLabel();
         emptyListSubTitle = new javax.swing.JLabel();
+=======
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableTasks = new javax.swing.JTable();
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
 
         jScrollPaneTasks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -237,12 +242,33 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+<<<<<<< HEAD
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
         jPanel7.setLayout(new java.awt.BorderLayout());
+=======
+        jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nome", "Descrição", "Prazo", "Tarefa Concluída"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
 
         jPanelEmptyList.setBackground(new java.awt.Color(40, 40, 40));
         jPanelEmptyList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+<<<<<<< HEAD
         emptyListIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         emptyListIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lists.png"))); // NOI18N
 
@@ -283,6 +309,17 @@ public class MainScreen extends javax.swing.JFrame {
         );
 
         jPanel7.add(jPanelEmptyList, java.awt.BorderLayout.CENTER);
+=======
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableTasks.setRowHeight(50);
+        jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTasks.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(jTableTasks);
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -427,7 +464,10 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTasks;
     private javax.swing.JPanel jPanelTooBar;
     private javax.swing.JScrollPane jScrollPaneProjects;
+<<<<<<< HEAD
     private javax.swing.JScrollPane jScrollPaneTasks;
+=======
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
     private javax.swing.JTable jTableTasks;
     private javax.swing.JLabel projectsIcon;
     private javax.swing.JLabel projectsTitle;
@@ -447,17 +487,22 @@ public class MainScreen extends javax.swing.JFrame {
         
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
+<<<<<<< HEAD
         
         if (!projectsModel.isEmpty()) {
             jListProjects.setSelectedIndex(0);
             Project project = (Project) projectsModel.get(0);
             loadTasks(project.getId());
         }
+=======
+        loadTasks(1);
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
     }
     
     public void loadTasks(int id) {
         List<Task> tasks = taskController.select(id);
         taskModel.setTasks(tasks);
+<<<<<<< HEAD
         
         showJTableTasks(!tasks.isEmpty());
     }
@@ -481,6 +526,8 @@ public class MainScreen extends javax.swing.JFrame {
             jPanelEmptyList.setVisible(true);
             jPanelEmptyList.setSize(jPanel7.getWidth(), jPanel7.getHeight());
         }
+=======
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
     }
     
     public void  loadProjects() {

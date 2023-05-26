@@ -358,7 +358,11 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
+<<<<<<< HEAD
         <Container class="javax.swing.JPanel" name="jPanelEmptyList">
+=======
+        <Component class="javax.swing.JTable" name="jTableTasks">
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="28" green="28" red="28" type="rgb"/>
@@ -368,6 +372,13 @@
                 <EtchetBorder/>
               </Border>
             </Property>
+<<<<<<< HEAD
+=======
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+              <JTableSelectionModel selectionMode="0"/>
+            </Property>
+            <Property name="showHorizontalLines" type="boolean" value="true"/>
+>>>>>>> 502b9fe95368a898e3145f766fe5b630c20d640c
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
